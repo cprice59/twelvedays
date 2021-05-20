@@ -45,9 +45,21 @@ the function takes a gift and returns the appropriate plural.
 # Return -- A string or vector of strings with the pluralized words
 
 pluralize_gift <- function(gift){
+  
+if (str_detect(gift, "oo")) {
+  gift <- gift %>%
+  str_replace("oo", "ee")
+}
 
-gift <- gift %>%
-  str_replace()
+else if (str_detect(gift, "y$")) {
+  gift <- gift %>%
+  str_replace("y$", "ies")
+}
+
+else if (str_detect(gift, "$")) {
+  gift <- gift %>%
+ str_replace("$", "s")
+}
 
 return(gift)
 
