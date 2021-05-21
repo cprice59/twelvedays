@@ -136,20 +136,17 @@ make_phrase <- function(num, num_word, item, verb, adjective, location) {
   ## Single items starting with a vowel should have "an" in front
   ## All other single items should have "a" in front
   
-  vowel_start <- str_sub(item, 1, 1) %>% str_detect(___)
+  vowel_start <- str_sub(item, 1, 1) %>% str_detect("[aeiou]")
   
-  if (___) {
-    
+  if (num > 1) {
     item <- pluralize_gift(item)
     
   } else if (vowel_start) {
-  
-      
+      str_replace("^", "an ")
+      item <- pluralize_gift(item)
     
   } else {
-    
-    
-    
+      str_replace("^", "a ")
   }
   
   glue::glue("{num_word} {adjective} {item} {verb} {location}") %>%
@@ -172,7 +169,7 @@ to create numbered days and then use those in your `pmap_chr()`!
 ```{r}
 xmas <- xmas %>%
   mutate(
-    Full.Phrase = pmap_chr(list(___), 
+    Full.Phrase = pmap_chr(list(english(Day.in.Words, english.UK = FALSE)), 
                            make_phrase)
   )
 ```
