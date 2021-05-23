@@ -130,6 +130,8 @@ make_phrase <- function(num, num_word, item, verb, adjective, location) {
   
   ## Step 1: Replace NAs with blank strings
   verb <- str_replace_na(verb, "")
+  adjective <- str_replace_na(adjective, "")
+  location <- str_replace_na(location, "")
   
   ## Step 2: Pluralize the gift if needed
   ## Items with numbers larger than 1 should be pluralized
@@ -203,27 +205,35 @@ Write a function called `sing_line` that takes as input:
 # Arguments -- phrase_col -- The variable name for the column in the dataset that contains the gift phrases
 # Return -- A string singing the line of the song with all gifts for the given day.
 
-sing_day <- function(dataset, line, phrase_col){
+sing_line <- function(dataset, line, phrase_col){
   
   # Step 1: Setup the intro line
   
-  num_word <- ____
+  num_word <- ordinal(line)
   
-  intro <- glue::glue("On the {num_word} day of Christmas")
+  intro <- glue::glue("On the {num_word} day of Christmas, my true love sent to me: \n")
   
   # Step 2: Sing the gift phrases
 
     phrases <- dataset %>% 
       pull({{phrase_col}})
-
-  ????
+    
+  res <- ""
+    
+  for(i in seq_along(phrases)) {
+    
+    if (i <= line) {
+      
+      res <- paste((phrases[[i]]), res, sep = "\n")
+    }
+  }
     
   ## put it together
     
-  ????
-
+  glue::glue("{intro} \n {res}")
 
 }
+
 
 
 ```
@@ -233,7 +243,7 @@ For example,
 
 ```{r}
 sing_line(xmas, 
-          num = 2, 
+          line = 2, 
           phrase_col = Full.Phrase)
 
 ```
