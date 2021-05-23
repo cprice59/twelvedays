@@ -144,10 +144,16 @@ make_phrase <- function(num, num_word, item, verb, adjective, location) {
     item <- pluralize_gift(item)
     
   } else if (vowel_start) {
-    paste("an", item, sep=" ")
+    
+    num_word = ""
+    
+    item <- paste("an", item, sep=" ")
     
   } else {
-    paste("a", item, sep=" ")
+    
+    num_word = ""
+    
+    item <- paste("a", item, sep=" ")
   }
   
   glue::glue("{num_word} {adjective} {item} {verb} {location}") %>%
@@ -224,8 +230,16 @@ sing_line <- function(dataset, line, phrase_col){
     
     if (i <= line) {
       
+      if (i == 2) {
+        
+        phrases[[i]] <- paste(phrases[[i]], "and", sep = " ")
+        
+      }
+      
       res <- paste((phrases[[i]]), res, sep = "\n")
+      
     }
+
   }
     
   ## put it together
