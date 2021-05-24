@@ -1,6 +1,7 @@
 ---
 title: "**Lab 8: The 12 Days of Christmas**"
-author: "**Chris Price, Allison Trutna, Kush Upadhyay, Benjamin Glossner**"
+author: "**Chris Price, Allison Trutna, Kush Upadhyay (Manager), Benjamin Glossner**"
+date: "5/23/2021"
 output:
   prettydoc::html_pretty:
     theme: tactile
@@ -183,32 +184,24 @@ sing_line <- function(dataset, line, phrase_col){
 
     phrases <- dataset %>% 
       pull({{phrase_col}})
-    
-  res <- ""
-    
-  for(i in seq_along(phrases)) {
-    
-    if (i <= line) {
+
+    if (line > 1) {
       
-      if (i == 2) {
-        
-        phrases[[i]] <- paste(phrases[[i]], "and", sep = " ")
-        
-      }
-      
-      res <- paste((phrases[[i]]), res, sep = "\n")
+        phrases[[2]] <- paste(phrases[[2]], "and", sep = " ")
       
     }
 
-  }
+    # Using collapse arg in paste(): https://www.journaldev.com/40396/paste-in-r
+    phrases <- paste(phrases[line:1], collapse = "\n")
+
     
   ## put it together
     
-  glue::glue("{intro} \n {res}")
+  lyrics <- paste(intro, phrases, "", sep = "\n")
 
+  return(lyrics)
+  
 }
-
-
 
 ```
 
