@@ -197,7 +197,7 @@ sing_line <- function(dataset, line, phrase_col){
     
   ## put it together
     
-  lyrics <- paste(intro, phrases, "", sep = "\n")
+  lyrics <- paste(intro, phrases, " ", sep = "\n")
 
   return(lyrics)
   
@@ -205,6 +205,11 @@ sing_line <- function(dataset, line, phrase_col){
 
 ```
 
+## Step Three Test
+
+```{r}
+sing_line(xmas, 2, Full.Phrase)
+```
 
 ---
 
